@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-using Unity.VisualScripting;
+using System.Reflection;
 
 public class GameScript : MonoBehaviour
 {
@@ -13,6 +13,9 @@ public class GameScript : MonoBehaviour
     string randomResult;
     //String to store random Player input selection
     string playerSelection;
+    int count = 1;
+
+    string message1 = "You have choose", message2 = "Computer choose", wrongKeyMessage = "Please give correct input - Select P, R or S";
 
     private readonly Array keyCodes = Enum.GetValues(typeof(KeyCode));
 
@@ -31,11 +34,12 @@ public class GameScript : MonoBehaviour
         var results = new List<string> { "Rock", "Paper", "Scissor" };
         int index = RndB.Next(results.Count);
         randomResult = results[index];
-    }    
-
+    }
+  
     // Update is called once per frame
     void Update()
     {
+     
         DetectInput();
        
     }
@@ -46,19 +50,19 @@ public class GameScript : MonoBehaviour
         switch (value)
         {
             case 0:
-                Debug.Log($"You have choose {playerSelection} \n" + $"Computer choose {randomResult}");
+                Debug.Log($"{message1} {playerSelection} \n {message2} {randomResult}");
                 Debug.Log("Draw");
                 break;
             case 1:
-                Debug.Log($"You have choose {playerSelection} \n" + $"Computer choose {randomResult}");
+                Debug.Log($"{message1} {playerSelection} \n {message2} {randomResult}");
                 Debug.Log("You Won !!!");
                 break;
             case -1:
-                Debug.Log($"You have choose {playerSelection} \n" + $"Computer choose {randomResult}");
+                Debug.Log($"{message1} {playerSelection} \n {message2} {randomResult}");
                 Debug.Log("Computer Won !!!");
                 break;
             default:
-                Debug.Log("Please give correct input - Select P, R or S");
+                Debug.Log(count++ + " " + wrongKeyMessage);
                 break;
 
         }
@@ -67,6 +71,7 @@ public class GameScript : MonoBehaviour
     //Method to detect the Player Input
     void DetectInput()
     {
+       
         RandomResultSelection();
         if (Input.anyKeyDown)
         {
@@ -137,6 +142,7 @@ public class GameScript : MonoBehaviour
             DisplayResult(-1);
         }
     }
+    
 }
 
    
